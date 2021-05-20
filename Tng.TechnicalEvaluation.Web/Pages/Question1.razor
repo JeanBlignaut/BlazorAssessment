@@ -1,0 +1,56 @@
+@page "/question1"
+@using Tng.TechnicalEvaluation.Infrastructure.Services
+@inject ISortService SortService
+<h1>Question #1 - Sorting</h1>
+
+<p>
+    Implement the two following sorting algorithms. DO NOT use the .NET framework built in sorting methods. You have to implement the sorting algorthims yourself :) (Tokenizing the string with the framework is allowed)
+</p>
+<ul>
+    <li>
+        Bubble Sort
+    </li>
+    <li>
+        Select Sort
+    </li>
+</ul>
+<p>
+    The user should input a string in the following format: <b>Zebra,Apple,Milk,Hello</b>. The application should then take the string and sort the words delimited by commas alphabetically eg. <b>Apple,Hello,Milk,Zebra</b>
+</p>
+<form class="row">
+    <div class="col-md-3">
+        <div class="row">Unsorted String: <input class="form-control" type="text" @bind="unsortedString" /></div>
+        <div class="row mar">
+            <select class="dropdown mt-3" @bind="algorithm">
+                <option value="0">Bubble Sort</option>
+                <option value="1">Select Sort</option>
+            </select>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-primary mt-3" @onclick="Sort">Sort</button>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-3">
+        <div class="row alert alert-danger mt-3">Sorted String: @sortedString</div>
+    </div>
+</div>
+
+@code {
+    private string unsortedString = string.Empty;
+    private string sortedString = string.Empty;
+    private int algorithm;
+
+    private void Sort()
+    {
+        sortedString = algorithm switch
+        {
+            0 => //BubbleSort
+                SortService.BubbleSort(unsortedString),
+            1 => //SelectSort
+                SortService.SelectSort(unsortedString),
+            _ => sortedString
+            };
+    }
+}

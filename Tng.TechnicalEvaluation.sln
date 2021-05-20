@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tng.TechnicalEvaluation.Web", "Tng.TechnicalEvaluation.Web\Tng.TechnicalEvaluation.Web.csproj", "{BC778E73-47EF-4F8B-85D9-089787D31E5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tng.TechnicalEvaluation.Services", "Tng.TechnicalEvaluation.Services\Tng.TechnicalEvaluation.Services.csproj", "{B239AC5E-600D-4ACB-99F7-80DF7FEE507F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tng.TechnicalEvaluation.Infrastructure", "Tng.TechnicalEvaluation.Infrastructure\Tng.TechnicalEvaluation.Infrastructure.csproj", "{90D5DFB1-90F6-4AC2-84DE-CD238630A015}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC778E73-47EF-4F8B-85D9-089787D31E5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC778E73-47EF-4F8B-85D9-089787D31E5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC778E73-47EF-4F8B-85D9-089787D31E5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC778E73-47EF-4F8B-85D9-089787D31E5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B239AC5E-600D-4ACB-99F7-80DF7FEE507F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B239AC5E-600D-4ACB-99F7-80DF7FEE507F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B239AC5E-600D-4ACB-99F7-80DF7FEE507F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B239AC5E-600D-4ACB-99F7-80DF7FEE507F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90D5DFB1-90F6-4AC2-84DE-CD238630A015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D5DFB1-90F6-4AC2-84DE-CD238630A015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D5DFB1-90F6-4AC2-84DE-CD238630A015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D5DFB1-90F6-4AC2-84DE-CD238630A015}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

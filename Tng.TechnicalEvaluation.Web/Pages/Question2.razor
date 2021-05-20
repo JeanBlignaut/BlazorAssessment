@@ -1,0 +1,91 @@
+﻿@page "/question2"
+
+@using Tng.TechnicalEvaluation.Infrastructure.Models
+@using Tng.TechnicalEvaluation.Infrastructure.Services
+@inject IPartService PartService
+
+<h1>Question #2 - Bill of Materials</h1>
+
+<p>
+    The aim is to implement a Bill of Materials calculator. The following requirements must be met:
+</p>
+<ul>
+    <li>
+        Display a list of all parts used to manufacture the product in a table. The following must be displayed : The ID of the parent Part, ID of the Part, Part Number, Part Description, Quantity Required, Cost
+    </li>
+    <li>
+        Provide a select box for the user to select the part that the cost of must be calculated.
+    </li>
+    <li>
+        Provide a textbox for the user to type the quantity of the part required.
+    </li>
+    <li>
+        <p>
+        Calculate the total cost required to manufacture the selected part. To calculate a cost for a part you need to add up the cost with the cost of all its sub parts with the required quantities. E.g.
+        </p>
+        <div>
+            <img src="images/BoM.png" alt="BoM Diagram" />
+        </div>
+        <p>
+            If I wanted to cost to manufacture one of A:
+        </p>
+        <p>
+            Cost of A = A + (2*B) + (3*(C + (4 * D)))<br />
+            Cost of A = 10.00 + (2 * 5.00) + (3 * (2.00 +  (4 * 1.00))<br />
+            Cost of A = 10.00 + 10.00 + (3 * (2.00 + 4.00))<br />
+            Cost of A = 10.00 + 10.00 + (3 * 6.00)<br />
+            Cost of A = 10.00 + 10.00 + 18.00<br />
+            Cost of A = 38.00
+        </p>
+    </li>
+    <li>
+        Display the total cost to the user.
+    </li>
+    <li>
+        Use bootstrap for styling
+    </li>
+</ul>
+<h4>Bill Of Materials</h4>
+@if (parts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Parent ID</th>
+            <th>ID</th>
+            <th>Number</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var part in parts)
+            {
+                <tr>
+                    <td>@part.ParentId</td>
+                    <td>@part.Id</td>
+                    <td>@part.Number</td>
+                    <td>@part.Description</td>
+                    <td>@part.Quantity</td>
+                    <td>@part.Cost</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<i>Your HTML should go here</i>
+@code {
+    private IEnumerable<Part> parts; 
+
+    protected override async Task OnInitializedAsync()
+    {
+        parts = await PartService.GetAllPartsAsync();
+    }
+    
+    //TODO: Add your methods to take the user import and calculate the total cost
+}
