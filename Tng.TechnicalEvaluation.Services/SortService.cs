@@ -22,9 +22,6 @@ namespace Tng.TechnicalEvaluation.Services
                         items[i] = items[i + 1];
                         items[i + 1] = temp;
                     }
-
-                    Debug.Print($"o={o}, i={i}");
-
                 }
             }
 
@@ -36,10 +33,11 @@ namespace Tng.TechnicalEvaluation.Services
             string[] items = input.Split(',');
             var result = new List<string>();
             int itemsOriginalLength = items.Length;
-            int selectedIndex = 0;
 
             while (result.Count() < itemsOriginalLength)
             {
+                int selectedIndex = 0;
+
                 for (int i = 1; i < items.Length; i++)
                 {
                     if (string.Compare(items[selectedIndex], items[i], System.StringComparison.InvariantCultureIgnoreCase) > 0)
@@ -47,11 +45,11 @@ namespace Tng.TechnicalEvaluation.Services
                         selectedIndex = i;
                     }
                 }
-                result.Append(items[selectedIndex]);
+                result.Add(items[selectedIndex]);
                 items = items.Except(result).ToArray();
             }
 
-            return string.Join(',', items);
+            return string.Join(',', result);
         }
     }
 }
