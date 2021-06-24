@@ -89,12 +89,13 @@
                 }
             </tbody>
         </table>
-    
+
 
         <div class="form-group">
             <label for="selectPart" class="col-sm-2 control-label">With Bootstrap:</label>
             <div class="col-sm-2">
                 <select @onchange=@OnPartChanged id="selectPart" class="form-control">
+                    <option value="">-select-</option>
                     @foreach (var part in parts.Select(p => new { p.Id, p.Description }))
                     {
                         <option value=@part.Id>@part.Description</option>
@@ -107,31 +108,51 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="total-label">Total:</span>
             </div>
-            <input type="text" class="form-control" placeholder="0.00" aria-label="Total" aria-describedby="total-label" value=@total>
+            <input readonly type="text" class="form-control" placeholder="0.00" aria-label="Total" aria-describedby="total-label" value=@total>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="quantity-label">Quantity:</span>
+            </div>
+            <input type="number" min="0" class="form-control" aria-label="Quantity" aria-describedby="quantity-label" value=@quantity @onchange=@OnQuantityChanged>
         </div>
 
 
     }
-    </div> <!--card-->
+</div> <!--card-->
 
 </div> <!--container-->
 
 @code {
     private IEnumerable<Part> parts;
-    private decimal total;
+    private long partId = 0;
+
+    private decimal total = 0;
+    private int quantity = 1;
 
     protected override async Task OnInitializedAsync()
     {
         parts = await PartService.GetAllPartsAsync();
-
-        total = await PartService.GetTotalCost(parts.First().Id);
     }
 
     protected async Task OnPartChanged(ChangeEventArgs e)
     {
-        long partId = 0;
+        partId = 0;
         long.TryParse(e.Value.ToString(), out partId);
-        total = partId == 0 ? 0 : await PartService.GetTotalCost(partId);
+        await SetTotal();
     }
 
+    protected async Task OnQuantityChanged(ChangeEventArgs e)
+    {
+        int quant = 0;
+        int.TryParse(e.Value.ToString(), out quant);
+        quantity = quant;
+        await SetTotal();
+    }
+
+    private async Task SetTotal()
+    {
+        total = partId == 0 ? 0 : await PartService.GetTotalCost(partId, quantity);
+    }
 }
