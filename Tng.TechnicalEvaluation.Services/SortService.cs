@@ -14,7 +14,7 @@ namespace Tng.TechnicalEvaluation.Services
 
             for (int o = 0; o < items.Length - 1; o++)
             {
-                for (int i = 0; i < items.Length - i - 1; i++)
+                for (int i = 0; i < items.Length - o - 1; i++)
                 {
                     if (string.Compare(items[i], items[i + 1], System.StringComparison.InvariantCultureIgnoreCase) > 0)
                     {
