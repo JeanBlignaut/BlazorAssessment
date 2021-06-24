@@ -91,19 +91,21 @@ else
 }
 
     @code {
-private IEnumerable<Part> parts;
-    private decimal total;
+        private IEnumerable<Part> parts;
+        private decimal total;
 
-    protected override async Task OnInitializedAsync()
-    {
-        parts = await PartService.GetAllPartsAsync();
+        protected override async Task OnInitializedAsync()
+        {
+            parts = await PartService.GetAllPartsAsync();
 
-        total = await PartService.GetTotalCost(parts.First().Id);
-    }
+            total = await PartService.GetTotalCost(parts.First().Id);
+        }
 
-    protected async Task OnPartChanged(ChangeEventArgs e)
-    {
-        total = await PartService.GetTotalCost(((Part)e.Value).Id);
-    }
+        protected async Task OnPartChanged(ChangeEventArgs e)
+        {
+            long partId = 0; 
+            long.TryParse(e.Value.ToString(), out partId);
+            total = partId == 0 ? 0 : await PartService.GetTotalCost(partId);
+        }
 
     }
