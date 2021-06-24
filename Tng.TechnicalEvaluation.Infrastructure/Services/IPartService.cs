@@ -8,6 +8,6 @@ namespace Tng.TechnicalEvaluation.Infrastructure.Services
     {
         Task<IEnumerable<Part>> GetAllPartsAsync();
 
-        Task<decimal> GetTotalCost(long partIndex);
+        Task<decimal> GetTotalCost(long partIndex, int amount = 1);
     }
 }

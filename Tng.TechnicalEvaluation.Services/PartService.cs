@@ -22,12 +22,14 @@ namespace Tng.TechnicalEvaluation.Services
             return await _context.Parts.ToListAsync();
         }
 
-        public async Task<decimal> GetTotalCost(long partIndex)
+        public async Task<decimal> GetTotalCost(long partIndex, int amount = 1)
         {
             //var part = await _context.Parts.FromSqlInterpolated("Create me a children CTE??");
             var part = await _context.Parts.FindAsync(partIndex);
+            var childCost = await GetChildCost(part);
+            var totalCost = (part.Cost + childCost) * amount;
 
-            return await GetChildCost(part);
+            return totalCost;
         }
 
         private async Task<decimal> GetChildCost(Part part)
