@@ -4,108 +4,134 @@
 @using Tng.TechnicalEvaluation.Infrastructure.Services
 @inject IPartService PartService
 
-<h1>Question #2 - Bill of Materials</h1>
-
-<p>
-    The aim is to implement a Bill of Materials calculator. The following requirements must be met:
-</p>
-<ul>
-    <li>
-        Display a list of all parts used to manufacture the product in a table. The following must be displayed : The ID of the parent Part, ID of the Part, Part Number, Part Description, Quantity Required, Cost
-    </li>
-    <li>
-        Provide a select box for the user to select the part that the cost of must be calculated.
-    </li>
-    <li>
-        Provide a textbox for the user to type the quantity of the part required.
-    </li>
-    <li>
-        <p>
-            Calculate the total cost required to manufacture the selected part. To calculate a cost for a part you need to add up the cost with the cost of all its sub parts with the required quantities. E.g.
-        </p>
-        <div>
-            <img src="images/BoM.png" alt="BoM Diagram" />
-        </div>
-        <p>
-            If I wanted to cost to manufacture one of A:
-        </p>
-        <p>
-            Cost of A = A + (2*B) + (3*(C + (4 * D)))<br />
-            Cost of A = 10.00 + (2 * 5.00) + (3 * (2.00 +  (4 * 1.00))<br />
-            Cost of A = 10.00 + 10.00 + (3 * (2.00 + 4.00))<br />
-            Cost of A = 10.00 + 10.00 + (3 * 6.00)<br />
-            Cost of A = 10.00 + 10.00 + 18.00<br />
-            Cost of A = 38.00
-        </p>
-    </li>
-    <li>
-        Display the total cost to the user.
-    </li>
-    <li>
-        Use bootstrap for styling
-    </li>
-</ul>
-<h4>Bill Of Materials</h4>
-@if (parts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Parent ID</th>
-                <th>ID</th>
-                <th>Number</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Cost</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var part in parts)
-            {
-                <tr>
-                    <td>@part.ParentId</td>
-                    <td>@part.Id</td>
-                    <td>@part.Number</td>
-                    <td>@part.Description</td>
-                    <td>@part.Quantity</td>
-                    <td>@part.Cost</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <div>
-        <select @onchange=@OnPartChanged>
-            @foreach (var part in parts.Select(p => new { p.Id, p.Description }))
-            {
-                <option value=@part.Id>@part.Description</option>
-            }
-        </select>
-
-        <span>Total: @total</span>
+<div class="container">
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Question #2 - Bill of Materials</h1>
+        <p class="lead">The aim is to implement a Bill of Materials calculator.</p>
     </div>
-}
+</div>
 
-    @code {
-        private IEnumerable<Part> parts;
-        private decimal total;
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">The following requirements must be met:</h5>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            Display a list of all parts used to manufacture the product in a table. The following must be displayed : The ID of the parent Part, ID of the Part, Part Number, Part Description, Quantity Required, Cost
+        </li>
+        <li class="list-group-item">
+            Provide a select box for the user to select the part that the cost of must be calculated.
+        </li>
+        <li class="list-group-item">
+            Provide a textbox for the user to type the quantity of the part required.
+        </li>
+        <li class="list-group-item">
+            <p>
+                Calculate the total cost required to manufacture the selected part. To calculate a cost for a part you need to add up the cost with the cost of all its sub parts with the required quantities. E.g.
+            </p>
+            <div>
+                <img src="images/BoM.png" alt="BoM Diagram" />
+            </div>
+            <p>
+                If I wanted to cost to manufacture one of A:
+            </p>
+            <p>
+                Cost of A = A + (2*B) + (3*(C + (4 * D)))<br />
+                Cost of A = 10.00 + (2 * 5.00) + (3 * (2.00 +  (4 * 1.00))<br />
+                Cost of A = 10.00 + 10.00 + (3 * (2.00 + 4.00))<br />
+                Cost of A = 10.00 + 10.00 + (3 * 6.00)<br />
+                Cost of A = 10.00 + 10.00 + 18.00<br />
+                Cost of A = 38.00
+            </p>
+        </li>
+        <li class="list-group-item">
+            Display the total cost to the user.
+        </li>
+        <li class="list-group-item">
+            Use bootstrap for styling
+        </li>
+    </ul>
+</div>
 
-        protected override async Task OnInitializedAsync()
-        {
-            parts = await PartService.GetAllPartsAsync();
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Bill Of Materials</h4>
+    </div>
+    @if (parts == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Parent ID</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var part in parts)
+                {
+                    <tr>
+                        <td>@part.ParentId</td>
+                        <td>@part.Id</td>
+                        <td>@part.Number</td>
+                        <td>@part.Description</td>
+                        <td>@part.Quantity</td>
+                        <td>@part.Cost</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    
 
-            total = await PartService.GetTotalCost(parts.First().Id);
-        }
+        <div class="form-group">
+            <label for="selectPart" class="col-sm-2 control-label">With Bootstrap:</label>
+            <div class="col-sm-2">
+                <select @onchange=@OnPartChanged id="selectPart" class="form-control">
+                    @foreach (var part in parts.Select(p => new { p.Id, p.Description }))
+                    {
+                        <option value=@part.Id>@part.Description</option>
+                    }
+                </select>
+            </div>
+        </div>
 
-        protected async Task OnPartChanged(ChangeEventArgs e)
-        {
-            long partId = 0; 
-            long.TryParse(e.Value.ToString(), out partId);
-            total = partId == 0 ? 0 : await PartService.GetTotalCost(partId);
-        }
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="total-label">Total:</span>
+            </div>
+            <input type="text" class="form-control" placeholder="0.00" aria-label="Total" aria-describedby="total-label" value=@total>
+        </div>
+
 
     }
+    </div> <!--card-->
+
+</div> <!--container-->
+
+@code {
+    private IEnumerable<Part> parts;
+    private decimal total;
+
+    protected override async Task OnInitializedAsync()
+    {
+        parts = await PartService.GetAllPartsAsync();
+
+        total = await PartService.GetTotalCost(parts.First().Id);
+    }
+
+    protected async Task OnPartChanged(ChangeEventArgs e)
+    {
+        long partId = 0;
+        long.TryParse(e.Value.ToString(), out partId);
+        total = partId == 0 ? 0 : await PartService.GetTotalCost(partId);
+    }
+
+}
