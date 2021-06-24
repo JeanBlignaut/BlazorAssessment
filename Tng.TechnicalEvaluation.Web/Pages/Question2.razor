@@ -21,7 +21,7 @@
     </li>
     <li>
         <p>
-        Calculate the total cost required to manufacture the selected part. To calculate a cost for a part you need to add up the cost with the cost of all its sub parts with the required quantities. E.g.
+            Calculate the total cost required to manufacture the selected part. To calculate a cost for a part you need to add up the cost with the cost of all its sub parts with the required quantities. E.g.
         </p>
         <div>
             <img src="images/BoM.png" alt="BoM Diagram" />
@@ -54,14 +54,14 @@ else
 {
     <table class="table">
         <thead>
-        <tr>
-            <th>Parent ID</th>
-            <th>ID</th>
-            <th>Number</th>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Cost</th>
-        </tr>
+            <tr>
+                <th>Parent ID</th>
+                <th>ID</th>
+                <th>Number</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+            </tr>
         </thead>
         <tbody>
             @foreach (var part in parts)
@@ -77,15 +77,33 @@ else
             }
         </tbody>
     </table>
+
+    <div>
+        <select @onchange=@OnPartChanged>
+            @foreach (var part in parts.Select(p => new { p.Id, p.Description }))
+            {
+                <option value=@part.Id>@part.Description</option>
+            }
+        </select>
+
+        <span>Total: @total</span>
+    </div>
 }
-<i>Your HTML should go here</i>
-@code {
-    private IEnumerable<Part> parts; 
+
+    @code {
+private IEnumerable<Part> parts;
+    private decimal total;
 
     protected override async Task OnInitializedAsync()
     {
         parts = await PartService.GetAllPartsAsync();
+
+        total = await PartService.GetTotalCost(parts.First().Id);
     }
-    
-    //TODO: Add your methods to take the user import and calculate the total cost
-}
+
+    protected async Task OnPartChanged(ChangeEventArgs e)
+    {
+        total = await PartService.GetTotalCost(((Part)e.Value).Id);
+    }
+
+    }
