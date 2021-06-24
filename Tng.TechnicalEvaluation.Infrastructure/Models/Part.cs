@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tng.TechnicalEvaluation.Infrastructure.Models
@@ -12,5 +13,11 @@ namespace Tng.TechnicalEvaluation.Infrastructure.Models
         public string Description { get; set; }
         public int Quantity { get; set; }
         public decimal Cost { get; set; }
+
+        [ForeignKey("ParentId")]
+        public Part Parent { get; set; }
+
+        [InverseProperty("Parent")]
+        public ICollection<Part> Children { get; set; }
     }
 }
