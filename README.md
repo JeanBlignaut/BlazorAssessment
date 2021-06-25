@@ -1,5 +1,5 @@
-# Tng.TechnicalEvaluation
-TrueNorth Software Technical Evaluation
+# Technical Evaluation
+Technical Evaluation
 
 You will need the following installed to complete the following test:
 
